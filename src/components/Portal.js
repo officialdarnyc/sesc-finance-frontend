@@ -2,9 +2,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Modal from "react-modal";
-import { fetchInvoice, invoicePay } from "../helpers/invoiceHelper";
-import { useDispatch, useSelector } from "react-redux";
-import invoiceReducer from "../reducers/invoiceReducer";
 
 const Portal = () => {
   const [referenceId, setReferenceId] = useState("");
@@ -77,7 +74,7 @@ const Portal = () => {
           minLength={5}
           maxLength={7}
         />
-        <button type="submit" onClick={searchInvoice}>
+        <button type="submit" onClick={handleSubmit}>
           Find Invoice
         </button>
         </form>
