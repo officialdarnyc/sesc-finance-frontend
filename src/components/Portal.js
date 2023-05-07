@@ -11,7 +11,6 @@ const Portal = () => {
   const [notification, setNotification] = useState("");
   const [error, setError] = useState(null);
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -19,7 +18,6 @@ const Portal = () => {
         `http://localhost:8000/api/invoices/reference/${referenceId}`
       );
       setInvoice(response.data);
-      console.log(invoice, 'hahaha');
       setModalIsOpen(true);
     } catch (error) {
       setError("An error occurred while fetching invoice details.");
@@ -36,9 +34,7 @@ const Portal = () => {
       const response = await axios.put(
         `http://localhost:8000/api/invoices/${referenceId}/pay`
       );
-      console.log(response, 'debugging')
       setInvoicePay(response);
-      console.log(invoicePay, 'debug');
       setNotification("Payment has been successfully made!");
     } catch (error) {
       setError("An error occurred while making payment.");
@@ -65,36 +61,19 @@ const Portal = () => {
       <div>
         <h2>Payment Portal</h2>
         <form onSubmit={handleSubmit}>
-        <h3>Enter Invoice Reference</h3>
-        <input
-          type="text"
-          value={referenceId}
-          onChange={(e) => setReferenceId(e.target.value)}
-          required
-          minLength={5}
-          maxLength={7}
-        />
-        <button type="submit" onClick={handleSubmit}>
-          Find Invoice
-        </button>
+          <h3>Enter Invoice Reference</h3>
+          <input
+            type="text"
+            value={referenceId}
+            onChange={(e) => setReferenceId(e.target.value)}
+            required
+            minLength={5}
+            maxLength={7}
+          />
+          <button type="submit" onClick={handleSubmit}>
+            Find Invoice
+          </button>
         </form>
-
-        {invoice && (
-          <div>
-            <div>
-              <h3>Invoice Found</h3>
-            </div>
-            <p>Reference: {invoice.reference}</p>
-            <p>Student ID: {invoice.studentId}</p>
-            <p>Amount: ${invoice.amount}</p>
-            <p>Due Date: {invoice.dueDate}</p>
-            <p>Type: {invoice.type}</p>
-            <p>Status: {invoice.status}</p>
-            <button type="submit" onClick={handlePay}>
-              Pay
-            </button>
-          </div>
-        )}
         <Modal isOpen={modalIsOpen} onRequestClose={handleModalClose}>
           {invoice && (
             <div className="Modal-content">
@@ -113,6 +92,12 @@ const Portal = () => {
               <button type="submit" onClick={handlePay}>
                 Pay
               </button>
+              {error && (
+                <div>
+                  <p className="error-message">{error}</p>
+                  <button onClick={handleCloseError}>X</button>
+                </div>
+              )}
             </div>
           )}
           {notification && (
@@ -122,18 +107,6 @@ const Portal = () => {
             </div>
           )}
         </Modal>
-
-        {invoicePay && (
-          <div className="invoice">
-            <h3>Invoice Details</h3>
-            <p>Reference: {invoicePay.reference}</p>
-            <p>Student ID: {invoicePay.studentId}</p>
-            <p>Amount: ${invoicePay.amount}</p>
-            <p>Due Date: {invoicePay.dueDate}</p>
-            <p>Type: {invoicePay.type}</p>
-            <p>Status: {invoicePay.status}</p>
-          </div>
-        )}
       </div>
     </body>
   );

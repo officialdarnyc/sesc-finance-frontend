@@ -118,16 +118,12 @@ margin-top: 20px;
 .Modal-header {
 display: flex;
 justify-content: space-between;
-align-items: center;
-margin-bottom: 20px;
-padding: 0.5rem;
-font-size: 1.5rem;
-text-align: center;
 }
 
 .Modal-header h3 {
 font-size: 1.5rem;
 margin: 0;
+color: #0069d9;
 }
 
 .Modal-close {
@@ -149,6 +145,13 @@ color: #4caf50;
 padding: 2px;
 text-align: center;
 }
+
+.error-message {
+  background-color: #fff;
+  color: #e20c0c;
+  padding: 2px;
+  text-align: center;
+  }
 
 
 
